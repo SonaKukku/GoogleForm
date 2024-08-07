@@ -18,30 +18,34 @@ import java.time.Duration;
 import java.util.logging.Level;
 // import io.github.bonigarcia.wdm.WebDriverManager;
 import demo.wrappers.Wrappers;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 public class TestCases {
     ChromeDriver driver;
    // WebDriver driver;
     WebDriverWait wait;
-
+    private static final Logger logger = Logger.getLogger(TestCases.class.getName());
     
     @Test
     public void testCase01() throws InterruptedException{ 
 
         driver.get("https://docs.google.com/forms/d/e/1FAIpQLSep9LTMntH5YqIXa5nkiPKSs283kdwitBBhXWyZdAS-e4CxBQ/viewform");
-        
+        logger.info("Navigated to Google Forms URL.");
         Thread.sleep(3000);
       
         WebElement nameInputBox = driver.findElement(By.xpath("//div[@class='Xb9hP']/input[@type='text']"));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='Xb9hP']/input[@type='text']")));
         System.out.println("Enter your name");
         Wrappers.enterText (nameInputBox,"Crio Learner");
-       
+        logger.info("Name entered: Crio Learner");
         Thread.sleep(2000);
         
         WebElement practicingAutomationTextArea = driver.findElement(By.xpath("//textarea[contains(@class,'tL9Q4c')]"));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//textarea[contains(@class,'tL9Q4c')]")));
         String practisingAutomationText = "I want to be the best QA Engineer!";
+        logger.info("Text entered into textarea.");
         
 
         Thread.sleep(30000);
@@ -55,6 +59,8 @@ public class TestCases {
         // Select radio button a/c to automation experience
         System.out.println("Select your experience in Automation");
         Wrappers.radioButton (driver,"0 - 2");
+        logger.info("Radio button '0 - 2' selected.");
+
         
         //Select checkbox for skillsets
         System.out.println("Select three skills");
@@ -62,6 +68,7 @@ public class TestCases {
         Wrappers.checkBox(driver,"Java");
         Wrappers.checkBox(driver,"Selenium");
         Wrappers.checkBox(driver,"TestNG");
+        logger.info("Checkboxes selected: Java, Selenium, TestNG.");
         
         // Clicking on dropdown to select Salutation
         
@@ -71,6 +78,7 @@ public class TestCases {
         Thread.sleep(2000); 
         Wrappers.dropDownClick(driver,"Mrs");
         Thread.sleep(3000);
+        logger.info("Dropdown option 'Mrs' selected.");
         
         //Enter 7 days ago date
         
@@ -78,6 +86,7 @@ public class TestCases {
         String sevenDaysAgoDate = Wrappers.getdateSevenDaysAgo();
         Wrappers.enterText (dateInputBox, sevenDaysAgoDate);
         Thread.sleep(30000);
+        logger.info("Date entered: " + sevenDaysAgoDate);
 
         WebElement hourInput = driver.findElement(By.xpath("//input[@aria-label='Hour']")); // Update the XPath accordingly
         WebElement minuteInput = driver.findElement(By.xpath("//input[@aria-label='Minute']")); // Update the XPath accordingly
@@ -93,6 +102,7 @@ public class TestCases {
         minuteInput.clear();
         minuteInput.sendKeys(MM);
         System.out.println("Time is Entered");
+        logger.info("Time entered: " + HH + ":" + MM);
 
          // Click the submit button
         WebElement submitButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@class='NPEfkd RveJvd snByac']")));
@@ -107,6 +117,7 @@ public class TestCases {
          System.out.println(text);
 
          Thread.sleep(5000);
+         logger.info("Waited for submission to complete.");
     }
 
 
